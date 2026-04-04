@@ -20,3 +20,15 @@ jobs:
 
       - name: Run Tests
         run: mvn clean test
+
+      # 🔥 Login to GHCR
+      - name: Login to GHCR
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u aroragaurav2810 --password-stdin
+
+      # 🔥 Build Docker Image
+      - name: Build Docker Image
+        run: docker build -t ghcr.io/aroragaurav2810/automation-framework:latest .
+
+      # 🔥 Push Docker Image
+      - name: Push Docker Image
+        run: docker push ghcr.io/aroragaurav2810/automation-framework:latest

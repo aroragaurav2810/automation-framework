@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: automation-test-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: automation-tests
+        image: ghcr.io/aroragaurav2810/automation-framework:latest
+        imagePullPolicy: Always
+      restartPolicy: Never
