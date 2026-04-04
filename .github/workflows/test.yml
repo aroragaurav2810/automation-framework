@@ -8,6 +8,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # ✅ ADD THIS BLOCK HERE
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -23,12 +29,12 @@ jobs:
 
       # 🔥 Login to GHCR
       - name: Login to GHCR
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u aroragaurav2810 --password-stdin
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       # 🔥 Build Docker Image
       - name: Build Docker Image
-        run: docker build -t ghcr.io/aroragaurav2810/automation-framework:latest .
+        run: docker build -t ghcr.io/${{ github.actor }}/automation-framework:latest .
 
       # 🔥 Push Docker Image
       - name: Push Docker Image
-        run: docker push ghcr.io/aroragaurav2810/automation-framework:latest
+        run: docker push ghcr.io/${{ github.actor }}/automation-framework:latest
